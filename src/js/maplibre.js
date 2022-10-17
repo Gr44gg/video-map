@@ -4,14 +4,37 @@ import bbox from '@turf/bbox'
 export async function initMap (container) {
     const map = new maplibregl.Map({
         container: container,
-        style: 'https://demotiles.maplibre.org/style.json', 
+        
+        style: 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}',
+        style: {
+            'version': 8,
+            'sources': {
+            'satellite': {
+              'type': 'raster',
+              'tiles': [
+                'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}'
+              ],
+              'tileSize': 256,
+              'attribution': 'Google'
+            }
+            },
+            'layers': [
+              {
+              'id': 'satellite',
+              'type': 'raster',
+              'source': 'satellite',
+              'minzoom': 0,
+              'maxzoom': 20
+              }
+            ]
+            },
         center: [-74.5, 40], 
         zoom: 9 
         });   
 
         const response = await fetch('https://gist.githubusercontent.com/Gr44gg/388ca705b6c97b0d29380ec0272521dd/raw/003f8d5f0a4fbde02ee0f39db011ec7b890fc411/data.geojson')
         const data = await response.json()
-        
+
         map.on('load', async () => {
             map.loadImage(
                 'https://docs.mapbox.com/mapbox-gl-js/assets/custom_marker.png',
@@ -28,8 +51,8 @@ export async function initMap (container) {
                 'type': 'fill',
                 'source': 'data',
                 'paint': {
-                'fill-color': '#888888',
-                'fill-opacity': 0.4
+                'fill-color': 'yellow',
+                'fill-opacity': 0.3
                 },
                 'filter': ['==', '$type', 'Polygon']
             });
