@@ -31,7 +31,7 @@ export async function initMap (container) {
         zoom: 9 
     });   
 
-    //convinient loading of images (marker)
+    //convenient loading of images (marker)
     const loadImageAsPromise = (map, url) => {
         return new Promise((resolve, reject) => {
           map.loadImage(url, (error, image) => {
