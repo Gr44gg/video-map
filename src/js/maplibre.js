@@ -1,8 +1,8 @@
-import maplibregl from 'maplibre-gl'
 import bbox from '@turf/bbox'
 import { useStore } from '../stores/store';
 
 export async function initMap (container) {
+    const maplibregl = await import ('maplibre-gl')
     const map = new maplibregl.Map({
         container: container,
         style: {
@@ -86,9 +86,9 @@ export async function initMap (container) {
           }
         })
 
-        const layerIds = ['polygons', 'lines', 'markers']
+        const layers = ['polygons', 'lines', 'markers']
         
-        layerIds.forEach((layer) => {
+        layers.forEach((layer) => {
           map.on("mousemove", layer, (e) => {
               e.preventDefault()
               map.getCanvas().style.cursor = "pointer"
