@@ -31,6 +31,7 @@ export async function initMap (container) {
         zoom: 9 
     });   
 
+    //для удобной загрузки изображений (маркера)
     const loadImageAsPromise = (map, url) => {
         return new Promise((resolve, reject) => {
           map.loadImage(url, (error, image) => {
@@ -80,6 +81,7 @@ export async function initMap (container) {
             'filter': ['==', '$type', 'Point']
         });     
 
+        //смена стиля курсора при hover
         map.on('mousemove', (e) => {
           if (e.defaultPrevented === false) {
             map.getCanvas().style.cursor = "grab";
@@ -87,7 +89,7 @@ export async function initMap (container) {
         })
 
         const layers = ['polygons', 'lines', 'markers']
-        
+
         layers.forEach((layer) => {
           map.on("mousemove", layer, (e) => {
               e.preventDefault()
@@ -95,6 +97,7 @@ export async function initMap (container) {
           })            
         })
         
+        //отработка клика по ближайшему(верхнему) объекту
         map.on("click", (e) => {
             const store = useStore()
             store.$reset()
@@ -107,6 +110,7 @@ export async function initMap (container) {
             } 
           });        
         
+        //рассчет bounding box'а с помощью turf.js  
         const bounds = bbox(data)
         map.fitBounds(bounds)
     })
