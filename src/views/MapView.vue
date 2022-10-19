@@ -1,13 +1,11 @@
 <script setup>
-import MapComponent from '../components/MapComponent.vue';
-
+import Map from '../components/Map.vue';
+import Popup from '../components/Popup.vue';
 
 </script>
 
 <template>
-  <MapComponent />
+  <Map />
+  <Popup />
 </template>
 
-<style lang="sass" scoped>
-
-</style>

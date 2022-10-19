@@ -5,7 +5,6 @@ import { onMounted } from 'vue'
 onMounted(() => {
   const map = initMap("map")
 })
-
 </script>
 
 <template>
